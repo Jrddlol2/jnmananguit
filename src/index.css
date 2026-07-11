@@ -1,0 +1,57 @@
+/* Font stylesheet is loaded from index.html (with preconnect) instead of
+   here — a CSS @import is render-blocking and delays first paint. */
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  :root {
+    --primary: #f5f5f5;
+    --secondary: #111111;
+    --accent: #b49b73;
+  }
+  
+  :root.dark {
+    --primary: #111111;
+    --secondary: #f5f5f5;
+    --accent: #d6c3a5;
+  }
+
+  body {
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Unlayered on purpose so these always win over Tailwind's utility layer. */
+
+/* 100vh on mobile browsers includes space the address bar can cover, so the
+   hero can end up taller than what's actually visible. svh gives a stable
+   minimum that doesn't jump around on scroll; dvh (where supported) then
+   refines that to the exact live viewport. Desktop is unaffected either way. */
+.h-hero {
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+}
+
+/* Per-image responsive focal point, set via --mobile-pos/--desktop-pos
+   custom properties (see src/data/hero.ts). */
+.hero-image {
+  object-position: var(--mobile-pos, center);
+}
+
+@media (min-width: 768px) {
+  .hero-image {
+    object-position: var(--desktop-pos, center);
+  }
+}

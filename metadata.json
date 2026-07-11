@@ -1,0 +1,6 @@
+{
+  "name": "Jared Mananguit Portfolio",
+  "description": "Travel, Street, and Landscape Photography Across Asia. A visual collection of moments captured across Asia, documenting landscapes, cities, culture, architecture, and everyday life.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

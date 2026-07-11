@@ -1,0 +1,12 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Raw camera-original photo dumps — large, personal, and reproducible via
+# `npm run import-images`. Only the processed public/images/ output ships.
+raw-photos/
