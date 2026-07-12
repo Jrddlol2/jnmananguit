@@ -16,8 +16,8 @@ export function DestinationGrid({ destinations }: DestinationGridProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-        {destinations.map((dest, index) => (
-          <DestinationCard key={dest.id} destination={dest} offset={index % 2 !== 0} />
+        {destinations.map((dest) => (
+          <DestinationCard key={dest.id} destination={dest} />
         ))}
       </div>
     </div>
@@ -26,16 +26,15 @@ export function DestinationGrid({ destinations }: DestinationGridProps) {
 
 interface DestinationCardProps {
   destination: Destination;
-  offset: boolean;
 }
 
-function DestinationCard({ destination, offset }: DestinationCardProps) {
+function DestinationCard({ destination }: DestinationCardProps) {
   const { images } = useGalleryImages(destination.id, destination.title);
 
   return (
     <Link
       to={`/collections/${destination.id}`}
-      className={`group block ${offset ? 'md:mt-32' : ''}`}
+      className="group block"
     >
       <div className="relative overflow-hidden aspect-[4/5] mb-8">
         <CoverImage
