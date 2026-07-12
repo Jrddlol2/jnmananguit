@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { destinations } from '../data';
+import { destinations, destinationsList } from '../data';
 import { GalleryMasonry } from '../components/GalleryMasonry';
 import { CoverImage } from '../components/CoverImage';
 import { useGalleryImages } from '../hooks/useGalleryImages';
@@ -13,6 +13,10 @@ export function DestinationGallery() {
   const { id } = useParams<{ id: string }>();
   const destination = id ? destinations[id] : null;
   const { images, loading } = useGalleryImages(id ?? '', destination?.title ?? '');
+
+  const currentIndex = destinationsList.findIndex((d) => d.id === id);
+  const nextDestination =
+    currentIndex === -1 ? null : destinationsList[(currentIndex + 1) % destinationsList.length];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -69,7 +73,7 @@ export function DestinationGallery() {
       </div>
 
       {/* Intro Text */}
-      <div className="max-w-3xl mx-auto px-6 mb-24 text-center">
+      <div className="max-w-3xl mx-auto px-6 mb-12 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,10 +85,60 @@ export function DestinationGallery() {
         </motion.p>
       </div>
 
+      {/* Destination Switcher */}
+      <div className="flex flex-wrap items-center justify-center gap-3 mb-24 px-6">
+        {destinationsList.map((dest) => {
+          const isActive = dest.id === destination.id;
+          return isActive ? (
+            <span
+              key={dest.id}
+              className="px-5 py-2 text-[10px] uppercase tracking-[0.3em] text-accent border border-accent/40 rounded-full"
+            >
+              {dest.title}
+            </span>
+          ) : (
+            <Link
+              key={dest.id}
+              to={`/collections/${dest.id}`}
+              className="px-5 py-2 text-[10px] uppercase tracking-[0.3em] text-secondary/60 border border-secondary/20 rounded-full hover:text-accent hover:border-accent/40 transition-colors duration-300"
+            >
+              {dest.title}
+            </Link>
+          );
+        })}
+      </div>
+
       {/* Masonry Gallery */}
       <div className="max-w-[1600px] mx-auto px-6">
         <GalleryMasonry images={images} loading={loading} />
       </div>
+
+      {/* Next Destination CTA */}
+      {nextDestination && (
+        <Link
+          to={`/collections/${nextDestination.id}`}
+          className="group relative mt-32 flex h-[50vh] w-full items-center justify-center overflow-hidden"
+        >
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-primary/60 to-primary/90 transition-colors duration-500 group-hover:from-primary/50 group-hover:to-primary/80" />
+          <CoverImage
+            location={nextDestination.id}
+            alt={nextDestination.title}
+            className="absolute inset-0 h-full w-full object-cover object-center scale-105 transition-transform duration-700 group-hover:scale-100"
+          />
+          <div className="relative z-20 flex flex-col items-center text-center px-6">
+            <span className="mb-4 text-[10px] uppercase tracking-[0.3em] text-accent opacity-80">
+              Next Collection
+            </span>
+            <h3 className="text-5xl md:text-7xl font-serif italic font-light tracking-tight">
+              {nextDestination.title}
+            </h3>
+            <span className="mt-6 inline-flex items-center text-xs uppercase tracking-widest text-secondary group-hover:text-accent transition-colors duration-300">
+              View Collection
+              <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </span>
+          </div>
+        </Link>
+      )}
     </main>
   );
 }
