@@ -24,7 +24,7 @@ Concrete conventions for writing code that looks like it belongs in this codebas
 
 ## The SafeImage Pattern
 
-`SafeImage` is the single most-reused component in the codebase (`HeroSection`, `CoverImage`, `GalleryMasonry` all funnel through it) and it exists to solve one specific problem: a raw `<img>` shows a broken-image icon when its `src` 404s, which happens constantly here because photo folders are allowed to be legitimately empty (a country with no photos yet, a hero image not yet uploaded). `SafeImage` catches the `onError` and renders a small placeholder (icon + label) instead.
+`SafeImage` is the single most-reused component in the codebase (`HeroSection`, `CollectionsHero`, `CoverImage`, `GalleryMasonry` all funnel through it) and it exists to solve one specific problem: a raw `<img>` shows a broken-image icon when its `src` 404s, which happens constantly here because photo folders are allowed to be legitimately empty (a country with no photos yet, a hero image not yet uploaded). `SafeImage` catches the `onError` and renders a small placeholder (icon + label) instead.
 
 **Rule: any `<img>` whose source comes from `public/images/` should go through `SafeImage`, not a raw `<img>` tag.** If you're rendering a photo and reaching for `<img src=...>` directly, that's very likely a sign the image should be going through `SafeImage` (or a component that already wraps it, like `CoverImage`) instead.
 
@@ -54,13 +54,15 @@ export const things: Thing[] = [ /* ... */ ];
 - **The "eyebrow" label convention**: small uppercase section labels use `text-[10px] uppercase tracking-[0.3em] text-accent opacity-80` (or very close to it) — see "PORTFOLIOS" in `DestinationGrid`, "404" in `NotFound`, "About the Photographer" in the (now-removed) About page. If you're adding a new section label, match this pattern rather than inventing a new label style.
 - **Hover/interaction states are plain Tailwind** (`hover:`, `transition-colors`, `group-hover:`), not Motion's `whileHover`. See [Motion Usage](#motion-usage) below for the line between the two.
 - **Theme colors only via the semantic tokens** (`text-secondary`, `bg-primary`, `text-accent`, from `src/index.css`'s `@theme` block) — never a hardcoded hex value in a component. This is what makes the dark/light theme toggle work everywhere for free.
+  - **Exception: text and overlays sitting directly on a full-bleed photograph.** `CollectionsHero.tsx` uses fixed `text-white` plus raw `rgba()` values in its gradients and text-shadows instead of the semantic tokens. This is intentional, not an oversight — a hero's legibility depends on the photo underneath it, not on which site theme is active, so tying its contrast to `--secondary`/`--primary` would make it *less* correct, not more consistent. If you're building another full-bleed photo hero, follow this exception rather than reaching for theme tokens; for everything else, the rule above still holds.
 
 ## Motion Usage
 
-Two, and only two, patterns — see [DESIGN.md](DESIGN.md#motion) for the reasoning:
+Three patterns — see [DESIGN.md](DESIGN.md#motion) for the reasoning:
 
 1. **Entrance animation** — `motion.div` (or `motion.button`, etc.) with `initial` / `animate` (mount) or `initial` / `whileInView` + `viewport={{ once: true }}` (scroll-triggered). Keep it to opacity + a small translate; look at any existing page component for the exact values in use (`y: 20`, `duration: 0.6-0.8`) before inventing new ones.
 2. **Interaction feedback** — plain CSS via Tailwind (`hover:`, `transition-*`), not `whileHover`/`whileTap`. This codebase has zero `whileHover` usage — keep it that way unless there's a specific reason plain CSS can't express what's needed.
+3. **State-driven crossfade** — `AnimatePresence` keyed on a piece of state, used exactly once: `CollectionsHero.tsx`'s photo rotation (`key={slides[index].id}`, `initial`/`animate`/`exit` opacity). This is the pattern to reach for when content itself changes on a timer or user action and needs to dissolve rather than cut — not a general-purpose replacement for pattern 1. See DESIGN.md's [Known exception](DESIGN.md#motion) note before adding a second use of this pattern.
 
 ## Naming Conventions
 

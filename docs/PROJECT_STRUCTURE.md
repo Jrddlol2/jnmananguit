@@ -32,6 +32,7 @@ jared-mananguit-portfolio/
 │   │   ├── Navbar.tsx           # Desktop nav + mobile drawer, scroll-aware background
 │   │   ├── Footer.tsx           # Site footer with social links
 │   │   ├── HeroSection.tsx      # Homepage full-bleed hero banner
+│   │   ├── CollectionsHero.tsx  # Collections page hero — auto-rotates each destination's cover.jpg
 │   │   ├── DestinationGrid.tsx  # Card grid used on Home and Collections
 │   │   ├── GalleryMasonry.tsx   # Masonry photo grid + opens Lightbox
 │   │   ├── Lightbox.tsx         # Full-screen photo viewer (keyboard + click nav)

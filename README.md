@@ -58,7 +58,7 @@ Full-bleed hero (responsive focal point per device, see `src/data/hero.ts`) over
 
 `docs/screenshots/collections.png` — *placeholder*
 
-All destinations, same card grid component as the homepage.
+Auto-rotating full-bleed hero cycling through each destination's cover photo, over the same card grid component used on the homepage.
 </details>
 
 <details>
@@ -98,7 +98,7 @@ Currently a "Coming Soon" placeholder page. See [docs/GEAR_SYSTEM.md](docs/GEAR_
 | Section | Route | Purpose | Status |
 |---|---|---|---|
 | **Home** | `/` | Full-bleed hero + featured destinations grid — the first impression | ✅ Live |
-| **Collections** | `/collections` | Every destination, same card grid as the homepage | ✅ Live |
+| **Collections** | `/collections` | Auto-rotating cover-photo hero + every destination in the same card grid as the homepage | ✅ Live |
 | **Country page** | `/collections/:id` | One destination's cover banner, description, and full photo gallery | ✅ Live |
 | **Gear** | `/gear` | Camera/lens archive | 🚧 Placeholder — see [GEAR_SYSTEM.md](docs/GEAR_SYSTEM.md) |
 | **Film** | *(none yet)* | Film stock archive | 📋 Designed, not built — see [FILM_SYSTEM.md](docs/FILM_SYSTEM.md) |
@@ -200,7 +200,8 @@ Deploys to **Vercel** as a static site.
 | Force a specific cover photo | Add `COVER.txt` in that country's `raw-photos/` folder | [IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md#cover-selection-algorithm) |
 | Update page titles/descriptions | `useSEO({...})` call in the relevant `src/pages/*.tsx` | [ARCHITECTURE.md](docs/ARCHITECTURE.md#data-flow) |
 | Add/change a social link | Edit `src/data/socials.ts` — one array, every usage renders from it | [STYLE_GUIDE.md](docs/STYLE_GUIDE.md#data-files) |
-| Adjust the hero's mobile/desktop crop | `src/data/hero.ts` | — |
+| Adjust the homepage hero's mobile/desktop crop | `src/data/hero.ts` | — |
+| Change which photos rotate in the Collections hero, or the timing | `src/components/CollectionsHero.tsx` — pulls each destination's existing `cover.jpg` automatically, no separate image list to maintain | [DESIGN.md](docs/DESIGN.md#motion) |
 
 ## 📖 Documentation
 

@@ -119,6 +119,7 @@ graph TD
 
     Home --> HeroSection
     Home --> DestinationGrid
+    DestinationsIndex --> CollectionsHero
     DestinationsIndex --> DestinationGrid
     DestinationGallery --> GalleryMasonry
     DestinationGallery --> CoverImage
@@ -128,6 +129,7 @@ graph TD
     GalleryMasonry --> SafeImage
     CoverImage --> SafeImage
     HeroSection --> SafeImage
+    CollectionsHero --> SafeImage
 
     Navbar --> SocialLinks
     Footer --> SocialLinks

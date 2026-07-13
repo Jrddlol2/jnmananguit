@@ -18,9 +18,9 @@ This document is the *why* behind the interface. For the *how* (implementation d
 
 The site should feel like opening a printed photography book, not browsing a commercial website. A book doesn't compete with its own photographs — the page design recedes so the image is the only thing you're looking at. Concretely, that means:
 
-- **Photography always comes first.** If a UI decision and a photograph are in tension (e.g. an overlay dimming an image so text stays legible), the UI yields as much as it can while still being usable — see the hero gradient overlay in `HeroSection.tsx`, which fades in from 50% down rather than covering the whole frame.
+- **Photography always comes first.** If a UI decision and a photograph are in tension (e.g. an overlay dimming an image so text stays legible), the UI yields as much as it can while still being usable — see the hero gradient overlay in `HeroSection.tsx`, which fades in from 50% down rather than covering the whole frame. `CollectionsHero.tsx` takes this further: no flat overlay or bordered card at all, just a feathered radial scrim sized to the text block plus a fixed text color and soft shadow, so contrast is manufactured only where reading actually happens.
 - **The interface should be quiet.** Navigation, buttons, and labels are small, low-contrast until interacted with, and disappear from attention once you know where they are.
-- **Calm pacing.** No auto-playing carousels, no attention-grabbing motion, no urgency-driven UI patterns (countdown timers, "look now" badges). This is a portfolio, not a storefront.
+- **Calm pacing.** No attention-grabbing motion, no urgency-driven UI patterns (countdown timers, "look now" badges). This is a portfolio, not a storefront. Auto-playing motion is generally avoided too, with one considered exception — see [Motion](#motion).
 
 ## Inspiration, Not Imitation
 
@@ -68,11 +68,13 @@ Every animation in this codebase is one of exactly two things:
 
 Rule of thumb used throughout: **if you can't explain what an animation communicates, don't add it.** A fade-in tells the user "this content just became relevant." A bounce or spin doesn't tell them anything except "look at me" — which contradicts the whole premise of the site.
 
+> **Known exception:** `CollectionsHero.tsx` (the `/collections` hero) auto-rotates through four photos — one per destination's already-curated `cover.jpg` — on a 6.5s timer with a slow cross-dissolve. This is a real, deliberate departure from "no auto-playing motion," flagged here rather than left implicit. It earns the exception on the grounds that it's slow (not attention-grabbing), bounded (exactly four curated shots, not an arbitrary feed), user-adjustable (clicking a dot jumps to that photo and re-arms the timer from there, rather than fighting the user's choice), and exists on a page whose sole job is presenting destination photography — unlike a UI chrome element, the "motion" here *is* the content. Don't treat this as license to add auto-playing carousels elsewhere; each future case should be argued on the same terms, not copied by default.
+
 ## What's Deliberately Absent
 
 These aren't oversights — they were left out on purpose because they work against a photography-first experience:
 
 - **Glassmorphism / frosted blur panels.** Adds visual texture that competes with photographs for attention, and reads as "product UI" rather than "photo book."
 - **Bright/saturated brand colors.** See the color palette above — three muted tokens, on purpose.
-- **Flashy or physics-heavy animation** (spring bounces, parallax gimmicks, auto-playing transitions). Calm pacing is part of the brand.
+- **Flashy or physics-heavy animation** (spring bounces, parallax gimmicks, fast/attention-grabbing auto-playing transitions). Calm pacing is part of the brand — see the [Motion](#motion) section's one documented, deliberately slow exception.
 - **Dense UI chrome** — breadcrumbs, sidebars, filter panels, badges. The current information architecture (Home → Collections → a country) is intentionally shallow; new features should extend it carefully rather than bolting on a dashboard-style UI. See [ROADMAP.md](ROADMAP.md) for how search/filtering should probably be approached if added.
