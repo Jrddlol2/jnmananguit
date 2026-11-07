@@ -1,17 +1,19 @@
 import { SafeImage } from './SafeImage';
-import { coverImagePath } from '../lib/gallery';
+import { cardImagePath, coverImagePath } from '../lib/gallery';
 
 interface CoverImageProps {
   location: string;
   alt: string;
   className?: string;
   loading?: 'lazy' | 'eager';
+  /** Use the destination's card.jpg instead of cover.jpg */
+  card?: boolean;
 }
 
-export function CoverImage({ location, alt, className, loading = 'lazy' }: CoverImageProps) {
+export function CoverImage({ location, alt, className, loading = 'lazy', card = false }: CoverImageProps) {
   return (
     <SafeImage
-      src={coverImagePath(location)}
+      src={card ? cardImagePath(location) : coverImagePath(location)}
       alt={alt}
       className={className}
       fallbackLabel={alt}

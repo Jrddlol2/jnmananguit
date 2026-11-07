@@ -39,6 +39,7 @@ function DestinationCard({ destination }: DestinationCardProps) {
       <div className="relative overflow-hidden aspect-[4/5] mb-8">
         <CoverImage
           location={destination.id}
+          card={destination.hasCardImage}
           alt={destination.title}
           className="w-full h-full object-cover object-center"
         />

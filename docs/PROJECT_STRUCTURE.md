@@ -62,6 +62,7 @@ jared-mananguit-portfolio/
 │       │   └── homepage-hero.jpg
 │       └── <country>/          # japan, taiwan, bali, thailand, uae (see COLLECTIONS.md)
 │           ├── cover.jpg
+│           ├── card.jpg        # optional, see CARD.txt below
 │           ├── manifest.json   # { "count": N } — tells the site how many photos exist
 │           ├── 001.jpg … NNN.jpg          # full-size gallery photos (lightbox quality)
 │           └── 001-thumb.jpg … NNN-thumb.jpg  # smaller variants for the masonry grid
@@ -70,7 +71,8 @@ jared-mananguit-portfolio/
 │   └── <country>/
 │       ├── (any filenames, any of .jpg/.jpeg/.png/.webp)
 │       ├── metadata.json       # written by the pipeline: original → new filename, scores
-│       └── COVER.txt           # optional: force a specific cover instead of auto-selection
+│       ├── COVER.txt           # optional: force a specific cover instead of auto-selection
+│       └── CARD.txt            # optional: separate portrait image for the destination cards (card.jpg)
 │
 ├── scripts/
 │   └── import-images/

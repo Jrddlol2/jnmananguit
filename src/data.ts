@@ -2,6 +2,8 @@ export interface Destination {
   id: string;
   title: string;
   description: string;
+  /** Set when the import pipeline wrote a card.jpg (via raw-photos/<id>/CARD.txt) for the portrait cards. */
+  hasCardImage?: boolean;
 }
 
 // Photos themselves are not listed here — they're loaded automatically from
@@ -32,6 +34,7 @@ export const destinations: Record<string, Destination> = {
   uae: {
     id: 'uae',
     title: 'UAE',
+    hasCardImage: true,
     description: 'Moving between Abu Dhabi, Dubai, and the open desert that surrounds them. This collection traces the clean white geometry of the Sheikh Zayed Grand Mosque, the vertical scale of Dubai\'s skyline, and the older rhythms of the Creek and Al Fahidi\'s wind towers, before giving way to the quiet, shifting lines of the dunes at sunset.',
   },
 };

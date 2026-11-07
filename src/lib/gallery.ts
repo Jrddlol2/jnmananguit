@@ -20,6 +20,10 @@ export function coverImagePath(location: string): string {
   return destinationImagePath(location, `cover.${GALLERY_EXTENSION}`);
 }
 
+export function cardImagePath(location: string): string {
+  return destinationImagePath(location, `card.${GALLERY_EXTENSION}`);
+}
+
 function buildGalleryImage(location: string, title: string, n: number): GalleryImage {
   const padded = String(n).padStart(3, '0');
   const filename = `${padded}.${GALLERY_EXTENSION}`;

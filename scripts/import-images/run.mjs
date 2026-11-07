@@ -69,8 +69,8 @@ function findDuplicates(analyzed) {
   return warnings;
 }
 
-async function resolveCoverOverride(rawDir, analyzed) {
-  const overridePath = path.join(rawDir, 'COVER.txt');
+async function resolveOverride(rawDir, analyzed, overrideFile) {
+  const overridePath = path.join(rawDir, overrideFile);
   const requestedName = await readFile(overridePath, 'utf8')
     .then((s) => s.trim())
     .catch(() => null);
@@ -85,7 +85,7 @@ async function clearPreviousOutput(outDir) {
   const existing = await readdir(outDir).catch(() => []);
   await Promise.all(
     existing
-      .filter((f) => NUMBERED_FILE.test(f) || f.toLowerCase() === 'cover.jpg')
+      .filter((f) => NUMBERED_FILE.test(f) || ['cover.jpg', 'card.jpg'].includes(f.toLowerCase()))
       .map((f) => rm(path.join(outDir, f)))
   );
 }
@@ -123,7 +123,7 @@ async function processCountry(country) {
     }
   }
 
-  const { entry: overrideEntry, requestedName } = await resolveCoverOverride(rawDir, analyzed);
+  const { entry: overrideEntry, requestedName } = await resolveOverride(rawDir, analyzed, 'COVER.txt');
   let coverEntry = overrideEntry;
   if (requestedName && !overrideEntry) {
     console.warn(`  ! COVER.txt requests "${requestedName}" but no matching file was found — falling back to automatic selection.`);
@@ -155,6 +155,21 @@ async function processCountry(country) {
     quality: JPEG_QUALITY_COVER,
   });
 
+  // Optional separate image for the portrait destination cards, so a wide
+  // shot can stay the banner/hero cover while a vertical one fronts the card.
+  // It stays in the gallery too, since it isn't the cover.
+  const { entry: cardEntry, requestedName: requestedCard } = await resolveOverride(rawDir, analyzed, 'CARD.txt');
+  if (requestedCard && !cardEntry) {
+    console.warn(`  ! CARD.txt requests "${requestedCard}" but no matching file was found — cards will use cover.jpg.`);
+  }
+  if (cardEntry) {
+    await writeProcessedImage(cardEntry.fullPath, path.join(outDir, 'card.jpg'), {
+      maxDimension: MAX_DIMENSION_COVER,
+      quality: JPEG_QUALITY_COVER,
+    });
+    console.log(`  Card (CARD.txt): ${cardEntry.file}`);
+  }
+
   const galleryMetadata = [];
   let index = 1;
   for (const entry of gallery) {
@@ -183,6 +198,7 @@ async function processCountry(country) {
       breakdown: roundBreakdown(coverEntry.score.breakdown),
       overridden: Boolean(overrideEntry),
     },
+    card: cardEntry ? { original: cardEntry.file, new: 'card.jpg' } : null,
     gallery: galleryMetadata,
     duplicateWarnings,
   };

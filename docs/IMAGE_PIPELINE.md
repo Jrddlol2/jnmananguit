@@ -33,9 +33,10 @@ public/images/<country>/
 | `raw-photos/<country>/` | **No** (gitignored) | Drop zone. Any filenames, any of `.jpg` `.jpeg` `.png` `.webp`. This is where you put camera exports. |
 | `public/images/<country>/` | Yes | Pipeline output. What the deployed site actually serves. Never hand-edit files here — they get overwritten on the next run. |
 
-Two optional files change pipeline behavior, both live in `raw-photos/<country>/`:
+Three optional files change pipeline behavior, both live in `raw-photos/<country>/`:
 
 - **`COVER.txt`** — plain text file containing the exact original filename to force as the cover, bypassing auto-selection.
+- **`CARD.txt`** — same format; writes that photo as `card.jpg` for the portrait homepage/collections cards, so a wide shot can stay the banner cover. The photo also stays in the gallery. Set `hasCardImage: true` on the destination in `src/data.ts` to use it.
 - **`metadata.json`** — written *by* the pipeline (not an input), documented below.
 
 ## Pipeline Walkthrough
@@ -77,7 +78,8 @@ Each run for a country:
 
 | Output | Max long edge | JPEG quality | Used for |
 |---|---|---|---|
-| `cover.jpg` | 2600px | 90 | Homepage/collections cards, gallery page hero banner |
+| `cover.jpg` | 2600px | 90 | Homepage/collections cards, gallery page hero banner, Collections hero |
+| `card.jpg` (optional) | 2600px | 90 | Homepage/collections cards instead of `cover.jpg`, when `CARD.txt` is set |
 | `NNN.jpg` | 2400px | 88 | Lightbox full view |
 | `NNN-thumb.jpg` | 900px | 82 | Masonry grid (via `srcset`) |
 
