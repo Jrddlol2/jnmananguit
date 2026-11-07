@@ -6,7 +6,7 @@ import { useSEO } from '../hooks/useSEO';
 export function DestinationsIndex() {
   useSEO({
     title: 'Collections — Jared Mananguit Photography',
-    description: 'Browse the full collection of travel photography across Japan, Taiwan, Bali, and Thailand.',
+    description: 'Browse the full collection of travel photography across Japan, Taiwan, Bali, Thailand, and the UAE.',
     path: '/collections',
   });
 

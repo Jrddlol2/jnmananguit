@@ -51,7 +51,7 @@ export function HeroSection() {
             Travel & Street Photography
           </h2>
           <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-secondary/50 mb-8">
-            Japan • Taiwan • Bali • Thailand
+            Japan • Taiwan • Bali • Thailand • UAE
           </p>
 
           <Link

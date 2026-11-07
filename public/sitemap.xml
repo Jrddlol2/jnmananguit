@@ -32,6 +32,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://your-domain.vercel.app/collections/uae</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://your-domain.vercel.app/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

@@ -60,7 +60,7 @@ jared-mananguit-portfolio/
 │   └── images/
 │       ├── hero/
 │       │   └── homepage-hero.jpg
-│       └── <country>/          # japan, taiwan, bali, thailand (see COLLECTIONS.md)
+│       └── <country>/          # japan, taiwan, bali, thailand, uae (see COLLECTIONS.md)
 │           ├── cover.jpg
 │           ├── manifest.json   # { "count": N } — tells the site how many photos exist
 │           ├── 001.jpg … NNN.jpg          # full-size gallery photos (lightbox quality)

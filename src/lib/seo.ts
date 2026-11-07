@@ -7,5 +7,5 @@ export const SITE_URL = 'https://your-domain.vercel.app';
 export const SITE_NAME = 'Jared Mananguit Photography';
 export const DEFAULT_TITLE = 'Jared Mananguit — Photography Portfolio';
 export const DEFAULT_DESCRIPTION =
-  'Travel, street, and landscape photography across Asia by Jared Mananguit — documenting the intersection of ancient culture and modern life in Japan, Taiwan, Bali, and Thailand.';
+  'Travel, street, and landscape photography across Asia by Jared Mananguit — documenting the intersection of ancient culture and modern life in Japan, Taiwan, Bali, Thailand, and the UAE.';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;

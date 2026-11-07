@@ -116,6 +116,7 @@ Design intent and future expansion possibilities for each section are covered in
 | Taiwan | 52 |
 | Bali | 25 |
 | Thailand | 28 |
+| UAE | 61 |
 
 Collections are designed to be added without touching more than a couple of lines of code — see [docs/COLLECTIONS.md](docs/COLLECTIONS.md) for exactly how, and [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md) for how raw camera exports become a published gallery.
 

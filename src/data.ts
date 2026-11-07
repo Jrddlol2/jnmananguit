@@ -29,6 +29,11 @@ export const destinations: Record<string, Destination> = {
     title: 'Thailand',
     description: 'An ongoing documentation of Bangkok\'s constant motion. This work focuses on the density of urban life—the layered streets, night markets, and the quiet moments found within the city\'s overwhelming energy and relentless heat.',
   },
+  uae: {
+    id: 'uae',
+    title: 'UAE',
+    description: 'Moving between Abu Dhabi, Dubai, and the open desert that surrounds them. This collection traces the clean white geometry of the Sheikh Zayed Grand Mosque, the vertical scale of Dubai\'s skyline, and the older rhythms of the Creek and Al Fahidi\'s wind towers, before giving way to the quiet, shifting lines of the dunes at sunset.',
+  },
 };
 
 export const destinationsList = Object.values(destinations);

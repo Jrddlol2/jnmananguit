@@ -18,6 +18,7 @@ How a "destination" works, end to end — the metadata layer, the photo layer, a
 | Taiwan | `taiwan` | 52 |
 | Bali | `bali` | 25 |
 | Thailand | `thailand` | 28 |
+| UAE | `uae` | 61 |
 
 That's the full, current list — defined in `src/data.ts` and backed by real photos in `public/images/`.
 
