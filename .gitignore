@@ -10,3 +10,10 @@ coverage/
 # Raw camera-original photo dumps — large, personal, and reproducible via
 # `npm run import-images`. Only the processed public/images/ output ships.
 raw-photos/
+
+# Personal photo library being curated for portfolio candidates, and the
+# curation tooling's working output (inventory, contact sheets, review page,
+# copied candidates). Nothing here ships until explicitly approved and moved
+# into raw-photos/ or public/images/.
+Home/
+curation/
